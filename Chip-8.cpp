@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-Chip8::Chip8() {
+Chip8::Chip8() :gen(rd()), distrib(0,255) {
     std::array<uint8_t, 80> fontset = {
         0xF0, 0x90, 0x90, 0x90, 0xF0, // Number 0
         0x20, 0x60, 0x20, 0x20, 0x70, // Number 1
@@ -64,6 +64,7 @@ void Chip8::emulateCycle(){
     // ==========================================
     // 3. EXECUTE
     // ==========================================
+    uint8_t flag = 0;
     switch (prefix)
     {
     case 0x0:
@@ -83,8 +84,6 @@ void Chip8::emulateCycle(){
                 }
             }
         }
-
-        
         break;
     case 0x1:
         //jump to NNN
@@ -113,11 +112,11 @@ void Chip8::emulateCycle(){
         V[x] = NN;
         break;
     case 0x7:
-        //add constant to register vx (No carry:( )
+        //add constant to register vx (No carry :{ )
         V[x] += NN;
         break;
     case 0x8:
-        //Suka pizdec dolbaebi ponapishut huini svoei
+        //ALU
         switch (N)
         {
         case 0x1:
@@ -134,23 +133,41 @@ void Chip8::emulateCycle(){
             break;
         case 0x4:
             //add register vy into register vx, carry in vf
-            
+            uint16_t result = V[x]+ V[y];
+            if (result > 255) V[15] = 1;
+            else V[15] = 0;
+            flag = V[15];
+            V[x] = result;
+            V[15] = flag;
             break;
         case 0x5:
             //substract register vy from register vx, borrow in vf
-            
+            if (V[y]>V[x]) V[15] = 0;
+            else V[15] = 1;
+            flag = V[15];
+            V[x] = V[x] - V[y];
+            V[15] = flag;
             break;
         case 0x6:
-            //shift register vy right, bit 0 goes into register vf
-            
+            //shift register vx right, bit 0 goes into register vf
+            flag = V[x] & 0x0001;
+            V[x] >>= 1;
+            V[15] = flag;
             break;
         case 0x7:
             //substract register vx from register vy, borrow in vf (reversed 0x5 operation)
-            
+            if (V[x]>V[y]) V[15] = 0;
+            else V[15] = 1;
+            flag = V[15];
+            V[x] = V[y] - V[x];
+            V[15] = flag;
+            break;
             break;
         case 0xe:
-            //shift register vr left,bit 7 goes into register vf
-            
+            //shift register vx left,bit 7 goes into regisxter vf
+            flag = (V[x] & 0x80) >> 0x7;
+            V[x] <<= 1;
+            V[15] = flag;
             break;  
         }
         
@@ -165,11 +182,11 @@ void Chip8::emulateCycle(){
         break;
     case 0xb:
         //Jump to address NNN+register
-        
+        pc = V[0] + NNN;
         break;
     case 0xc:
-        //random number less than or equal to NNN
-        
+        //random number between 0 and 255 inclusive AND NNN
+        V[x] = distrib(gen) & NN;
         break;
     case 0xd:
         //Draw sprite at screen location rx,ry height s (dorabotka ebat)
@@ -180,7 +197,24 @@ void Chip8::emulateCycle(){
 
         break;
     case 0xf:
-        //tam ebat funcktsiy suka
+        //various functions
+        switch(NN){
+            case 0x7:
+            case 0xa:
+            case 0x15:
+            case 0x18:
+            case 0x1e:
+            case 0x29:
+            case 0x33:
+            case 0x55:
+                //save vx
+
+                break;
+            case 0x65:
+                //load vx
+                
+                break;
+        }
         
         break;
     default:
