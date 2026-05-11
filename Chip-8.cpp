@@ -205,7 +205,9 @@ void Chip8::emulateCycle(){
             case 0x18:
             case 0x1e:
             case 0x29:
+                //set i to hex char
             case 0x33:
+                //bcd
             case 0x55:
                 //save vx
 
