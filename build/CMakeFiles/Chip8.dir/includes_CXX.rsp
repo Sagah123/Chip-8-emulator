@@ -1,0 +1,1 @@
+-I"C:/Projects/Chip-8/include" -I"C:/Projects/Chip-8/build/_deps/sdl3-build/include-revision" -I"C:/Projects/Chip-8/build/_deps/sdl3-src/include"
