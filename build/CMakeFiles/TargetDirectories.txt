@@ -1,8 +1,0 @@
-C:/Projects/Chip-8/build/CMakeFiles/Chip8.dir
-C:/Projects/Chip-8/build/CMakeFiles/edit_cache.dir
-C:/Projects/Chip-8/build/CMakeFiles/rebuild_cache.dir
-C:/Projects/Chip-8/build/_deps/sdl3-build/CMakeFiles/SDL3-shared.dir
-C:/Projects/Chip-8/build/_deps/sdl3-build/CMakeFiles/SDL3_test.dir
-C:/Projects/Chip-8/build/_deps/sdl3-build/CMakeFiles/SDL_uclibc.dir
-C:/Projects/Chip-8/build/_deps/sdl3-build/CMakeFiles/edit_cache.dir
-C:/Projects/Chip-8/build/_deps/sdl3-build/CMakeFiles/rebuild_cache.dir
