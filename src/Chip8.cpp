@@ -26,18 +26,19 @@ Chip8::Chip8() :gen(rd()), distrib(0,255) {
     }
 }
 
-void Chip8::loadROM(const std::string& filename){
+bool Chip8::loadROM(const std::string& filename){
     std::ifstream file(filename, std::ios::binary | std::ios::ate);
     if (!file.is_open()) {
-        throw std::runtime_error("Failed to open ROM: " + filename);
+        return false;
     }
     auto fileSize = file.tellg();
     if (fileSize > (Chip8::memory.size() - START_ADDRESS)) {
         throw std::runtime_error("ROM size exceeds available memory.");
     }
     file.seekg(0);  
-    file.read(reinterpret_cast<char*>(&memory[pc]), fileSize);
+    file.read(reinterpret_cast<char*>(&memory[START_ADDRESS]), fileSize);
     file.close();
+    return true;
 }
 
 void Chip8::emulateCycle(){
@@ -151,8 +152,7 @@ void Chip8::emulateCycle(){
             break;
         case 0x6:
             //shift register vx right, bit 0 goes into register vf
-            V[x] = V[y];
-            V[15] = V[x] & 0x1;
+           V[15] = V[x] & 0x1;
             V[x] >>= 1;
             break;
         case 0x7:
@@ -166,12 +166,11 @@ void Chip8::emulateCycle(){
             break;
         case 0xe:
             //shift register vx left,bit 7 goes into regisxter vf
-            V[x] = V[y];
             V[15] = (V[x] & 0x80) >> 0x7;
             V[x] <<= 1;
-
-            break;  
+            break;
     }
+    break;
     case 0x9:
         //skip if vx not equals vy
         if (N == 0 && V[x] != V[y]) pc += 2;
@@ -289,5 +288,4 @@ void Chip8::emulateCycle(){
         //Undefined instruction
         break;
     }
-
 }

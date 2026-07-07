@@ -1,3 +1,4 @@
+#pragma once
 #include <cstdint>
 #include <string>
 #include <random>
@@ -26,6 +27,6 @@ class Chip8 {
         uint8_t sound_timer{};
         bool drawFlag = false;
         Chip8();
-        void loadROM(const std::string& filename);
+        bool loadROM(const std::string& filename);
         void emulateCycle();
 };

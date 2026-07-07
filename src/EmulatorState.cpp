@@ -1,15 +1,25 @@
 #include "EmulatorState.h"
+#include "AppEngine.h"
+#include <fstream>
 #include <iostream>
 
-EmulatorState::EmulatorState(const std::string& romPath)
+EmulatorState::EmulatorState(AppEngine* engine, const std::string& romPath)
     :platform("CHIP8 emulator created by sagah", 20)
 {
-    chup8.loadROM(romPath);
+    this->engine = engine;
+    if (!chup8.loadROM(romPath)) {
+        throw std::runtime_error("ROM-файл не найден по пути: " + romPath);
+    }
     lastCycleTime = std::chrono::high_resolution_clock::now();
     lastTimerTime = std::chrono::high_resolution_clock::now();
+
 }
+EmulatorState::~EmulatorState(){}
 void EmulatorState::handleInput() {
-    platform.processInput(chup8.keypad);
+    bool quitRequested = platform.processInput(chup8.keypad);
+    if (!quitRequested){
+        engine->quit();
+    }
 }
 void EmulatorState::update() {
     auto currentTime = std::chrono::high_resolution_clock::now();

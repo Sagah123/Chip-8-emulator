@@ -1,3 +1,5 @@
+#pragma once
+
 class AppState {
     public:
         virtual void update() = 0;
