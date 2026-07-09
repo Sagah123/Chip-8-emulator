@@ -48,18 +48,18 @@ Here is the exact layout of the repository, separating the core hardware logic, 
 Chip-8-emulator/
 ├── CMakeLists.txt        # Build configuration
 ├── CMakePresets.json     # Presets for cross-platform builds
-├── include/              # Header files (.h)
+├── include/              # Header files
 │   ├── Chip8.h           # Core CPU registers, memory map, and fontset definitions
 │   ├── AppEngine.h       # Main application controller and abstract AppState interface
 │   ├── Platform.h        # SDL3 hardware abstraction layer (Video & Input wrappers)
 │   └── EmulatorState.h   # Concrete app state driving the microsecond-accurate loop
-├── src/                  # Source files (.cpp)
+├── src/                  # Source files
 │   ├── main.cpp          # Entry point and terminal-based ROM selection menu
 │   ├── Chip8.cpp         # Opcode fetch-decode-execute matrix and bitwise logic
 │   ├── AppEngine.cpp     # Game loop runner and dynamic state switcher
 │   ├── Platform.cpp      # SDL3 window creation, texture streaming, and keyboard polling
 │   └── EmulatorState.cpp # Chrono-based throttling for 500Hz CPU / 60Hz Timer sync
-└── roms/                 # Directory containing CHIP-8 game files (Space Invaders, Life, etc.)
+└── roms/                 # Directory containing CHIP-8 game files
 ```
 ---
 
@@ -75,15 +75,6 @@ Chip-8-emulator/
 > | <img src="URL_TO_IMAGE_1" width="250"/> | <img src="URL_TO_IMAGE_2" width="250"/> | <img src="URL_TO_IMAGE_3" width="250"/> |
 > 
 > </details>
-
----
-
-## 🚀 Key Features
-
-* **Historical Accuracy:** Strict adherence to the original COSMAC VIP specifications, including proper sprite **clipping** (instead of wrapping), which is critical for the correct behavior of complex ROMs like *Space Invaders*.
-* **Precise Timing (60Hz):** A framerate-independent game loop architecture (`AppEngine`) that ensures the `delay_timer` and `sound_timer` decrement at exactly 60Hz.
-* **Modern Build Stack:** Utilizes **CMake Presets** and the `FetchContent` module. Dependencies (like SDL3) are downloaded and compiled automatically, making the project completely plug-and-play across different operating systems.
-* **State Pattern Architecture:** Built around an abstract `AppState` base class, allowing for seamless expansion (e.g., adding a graphical GUI menu) without modifying the core processor logic.
 
 ---
 
