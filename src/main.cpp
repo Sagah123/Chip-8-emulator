@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]) {
      int i = 1;
-        std::filesystem::directory_iterator roms = std::filesystem::directory_iterator("../roms");
+        std::filesystem::directory_iterator roms = std::filesystem::directory_iterator("roms");
         std::vector<std::filesystem::path> romList;
         for(const auto& rom: roms){
             romList.push_back(rom.path());
