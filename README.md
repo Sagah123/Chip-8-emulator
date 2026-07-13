@@ -5,10 +5,9 @@
 ![CMake](https://img.shields.io/badge/CMake-3.20+-green.svg?style=for-the-badge&logo=cmake)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey.svg?style=for-the-badge)
 
-A highly accurate, cross-platform CHIP-8 emulator written in modern **C++20**. 
+A cross-platform CHIP-8 emulator written in C++20.
 
-This project was developed to gain a deep understanding of CPU architecture, low-level memory management, and bitwise operations. The emulator supports classic ROMs (Space Invaders, Tetris, Pong, Life) and ensures an accurate reproduction of the original 1970s hardware logic.
-
+I built this to actually understand what happens under the hood of a CPU: memory layout, opcode decoding, timing  instead of just reading about it. CHIP-8 is small enough to fully implement solo, but complex enough to hit real problems: syncing a 500Hz CPU loop against a 60Hz timer, decoding a 16-bit opcode into the right instruction, and getting sprite rendering to match the original XOR-based collision behavior. Runs classic ROMs like Space Invaders, Tetris, Pong as newer homebrew titles like Astro Dodge.
 ---
 
 ## 🛠️ Getting Started
@@ -70,20 +69,10 @@ Chip-8-emulator/
 > <details>
 > <summary>Click to expand screenshots</summary>
 > 
-> | Space Invaders | Tetris | Game of Life |
-> |:---:|:---:|:---:|
-> | <img src="URL_TO_IMAGE_1" width="250"/> | <img src="URL_TO_IMAGE_2" width="250"/> | <img src="URL_TO_IMAGE_3" width="250"/> |
+> | Space Invaders | Pong2 | Astro Dodge | Sqrt | IBM's logo |
+> |:---:|:---:|:---:|:---:|:---:|
+> | <img src="https://github.com/user-attachments/assets/46c88293-b485-448b-9623-03f9fe787c78" width="180"/><br><img src="https://github.com/user-attachments/assets/d959f823-36bd-4e16-b7f2-38e99c5df789" width="180"/><br><img src="https://github.com/user-attachments/assets/53234e74-efe3-41b6-8e35-916c67dd02cd" width="180"/> | <img src="https://github.com/user-attachments/assets/a2bbaf32-0254-4568-be44-7c17fd098c2b" width="180"/><br><img src="https://github.com/user-attachments/assets/ad8c1e7a-13b8-461e-9a24-c53f62de700c" width="180"/> | <img src="https://github.com/user-attachments/assets/c5abb0cd-e2c4-4a8f-bf9c-00efacec07e0" width="180"/><br><img src="https://github.com/user-attachments/assets/66202390-9b4a-4655-8435-829e221d383f" width="180"/><br><img src="https://github.com/user-attachments/assets/929dd440-20d0-48ee-830e-960c4ffa28ee" width="180"/> | <img src="https://github.com/user-attachments/assets/51f18dd6-a72f-4b4f-89f6-7c50bbe4bbd6" width="180"/> | <img src="https://github.com/user-attachments/assets/d3c42cd7-c166-49b8-a36f-c8a872550763" width="180"/> |
 > 
 > </details>
-
----
-
-## 🧠 Technical Showcase
-
-This repository demonstrates proficiency in the following technologies and concepts:
-1. **Low-Level C++:** Extensive use of `uint8_t`, `uint16_t`, `size_t`, raw memory arrays, and pointers.
-2. **Bitwise Arithmetic:** Decoding 16-bit opcodes (Fetch, Decode, Execute cycle), applying bitmasks, and utilizing bitwise shifts (`&`, `|`, `^`, `<<`, `>>`).
-3. **Cross-Platform Build Systems:** Writing a robust `CMakeLists.txt` and utilizing `std::filesystem` for OS-independent file handling.
-4. **Graphics & Rendering:** Integrating **SDL3** for rendering the pixel buffer (using XOR logic) and handling raw keyboard events.
 
 
