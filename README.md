@@ -7,7 +7,12 @@
 
 A cross-platform CHIP-8 emulator written in C++20.
 
-I built this to actually understand what happens under the hood of a CPU: memory layout, opcode decoding, timing  instead of just reading about it. CHIP-8 is small enough to fully implement solo, but complex enough to hit real problems: syncing a 500Hz CPU loop against a 60Hz timer, decoding a 16-bit opcode into the right instruction, and getting sprite rendering to match the original XOR-based collision behavior. Runs classic ROMs like Space Invaders, Tetris, Pong as newer homebrew titles like Astro Dodge.
+I built this to actually understand what happens under the hood of a CPU — memory layout, opcode decoding, timing — instead of just reading about it.
+
+The hard parts: syncing a 500Hz CPU loop against a 60Hz timer, decoding 16-bit opcodes into the right instructions, and getting sprite rendering to match the original XOR-based collision behavior.
+
+Runs classic ROMs like Space Invaders, Tetris, and Pong, as well as newer homebrew titles like Astro Dodge.
+
 ---
 
 ## 🛠️ Getting Started
@@ -22,7 +27,7 @@ Thanks to CMake Presets, the project builds with just a couple of commands—no 
 
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/Sagah123/Chip-8-emulator.git](https://github.com/Sagah123/Chip-8-emulator.git)
+git clone https://github.com/Sagah123/Chip-8-emulator.git
 cd Chip-8-emulator
 
 # 2. Configure the project (SDL3 will be fetched automatically)
